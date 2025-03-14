@@ -1,0 +1,165 @@
+{
+  "name": "Sergei Yakima",
+  "label": "Software Engineer",
+  "image_path": "media/profile.jpg",
+  "contact": {
+    "email": "sergeiyakima.dev@gmail.com",
+    "phone": "+972 54 752 8202",
+    "location": "Ashkelon, Israel"
+  },
+  "summary": "Passionate software engineer with a strong foundation in Python and C++. Experienced in developing machine learning models, with a particular focus on machine vision and AI-driven automation. Adept at reverse engineering and software analysis, bringing a problem-solving mindset to complex challenges. In addition to research and development, I have experience teaching programming and assisting students in mastering software concepts. Always eager to explore new AI technologies and build innovative solutions.",
+  "base_url": "https://yakima.dev",
+  "social_links": [
+    {
+      "label": "Yakima.Dev",
+      "url": "https://yakima.dev",
+      "svg_path": "img/globe.svg"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/sergei-yakima",
+      "svg_path": "img/linkedin.svg"
+    },
+    {
+      "label": "Github",
+      "url": "https://github.com/TheL0L",
+      "svg_path": "img/github.svg"
+    }
+  ],
+  "work_experience": [
+    {
+      "company": "Shamoon College of Engineering - SCE",
+      "position": "Teaching Assistant",
+      "url": "https://www.sce.ac.il",
+      "start_date": "June, 2024",
+      "end_date": "February, 2025",
+      "summary": "Assisted in teaching programming courses, guiding students through assignments and problem-solving.",
+      "highlights": [
+        "Evaluated and graded student assignments",
+        "Provided one-on-one assistance to students",
+        "Helped explain complex programming concepts"
+      ]
+    },
+    {
+      "company": "LeadersApp Technologies",
+      "position": "Python Teacher",
+      "url": "https://leadersapp.co.il",
+      "start_date": "May, 2024",
+      "end_date": "June, 2024",
+      "summary": "Designed and delivered Python programming lessons to high school students.",
+      "highlights": [
+        "Developed structured lesson plans covering Python fundamentals",
+        "Conducted hands-on coding exercises and debugging sessions",
+        "Encouraged problem-solving and algorithmic thinking"
+      ]
+    },
+    {
+      "company": "Amicell - Amit Industries Ltd.",
+      "position": "Prototype Development Engineer",
+      "url": "https://www.amicell.co.il",
+      "start_date": "August, 2023",
+      "end_date": "October, 2023",
+      "summary": "Contributed to the development of mechanical and electrical prototypes.",
+      "highlights": [
+        "Collaborated with engineers to design and test hardware components",
+        "Conducted static code analysis to identify and resolve issues",
+        "Worked on improving prototype efficiency and functionality"
+      ]
+    },
+    {
+      "company": "Atid Plus",
+      "position": "Teacher",
+      "url": "https://atidplus.org",
+      "start_date": "October, 2022",
+      "end_date": "March, 2023",
+      "summary": "Tutored high school students in mathematics, physics, programming, and English.",
+      "highlights": [
+        "Provided personalized tutoring to improve academic performance",
+        "Conducted group and individual lessons tailored to student needs",
+        "Simplified complex subjects through engaging and interactive teaching methods"
+      ]
+    }
+  ],
+  "projects": [],
+  "volunteer_experience": [],
+  "education": [
+    {
+      "institution": "Shamoon College of Engineering - SCE",
+      "location": "Ashdod, Israel",
+      "url": "https://www.sce.ac.il",
+      "degrees": [
+        "Bachelor of Software Engineering"
+      ],
+      "graduation_date": "July, 2025"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "proficiency": 90,
+      "proficiency_label": "Advanced"
+    },
+    {
+      "name": "C/C++",
+      "proficiency": 90,
+      "proficiency_label": "Advanced"
+    },
+    {
+      "name": "C#",
+      "proficiency": 80,
+      "proficiency_label": "Proficient"
+    },
+    {
+      "name": "Java",
+      "proficiency": 75,
+      "proficiency_label": "Proficient"
+    },
+    {
+      "name": "Unity 3D",
+      "proficiency": 75,
+      "proficiency_label": "Proficient"
+    },
+    {
+      "name": "Adobe Photoshop",
+      "proficiency": 70,
+      "proficiency_label": "Intermediate"
+    },
+    {
+      "name": "Adobe Premier",
+      "proficiency": 60,
+      "proficiency_label": "Intermediate"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Programming",
+      "summary": "Passionate about programming for fun, nothing brings more joy than automating tasks.",
+      "images": []
+    },
+    {
+      "name": "Reverse Engineering",
+      "summary": "Analyzing and making sense of compiled software is a challenging yet rewarding experience.",
+      "images": []
+    },
+    {
+      "name": "PC Building",
+      "summary": "Building computers requires just the right amount of know-how and tinkering to make it fun.",
+      "images": []
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Professional Working Proficiency"
+    },
+    {
+      "language": "Hebrew",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "Russian",
+      "fluency": "Native speaker"
+    }
+  ],
+  "references": []
+}
