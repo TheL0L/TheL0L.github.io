@@ -12,8 +12,7 @@
 
 /* Base Styles */
 body {
-  font-family: "Nunito", "Segoe UI", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   font-weight: 400;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -27,8 +26,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Montserrat", "Segoe UI", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   font-weight: 400;
   line-height: 1.2;
 }
