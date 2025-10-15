@@ -1,417 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergei Yakima - Software Engineer Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configure Tailwind for Dark Mode and Custom Font -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#1d4ed8', // Blue-700
+                        'secondary': '#f97316', // Orange-500
+                        'gray-150': '#eceef1',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    <!-- Site Info -->
-    <title>Sergei Yakima - Portfolio</title>
-    <meta name="description" content="Sergei Yakima - Passionate software engineer with a strong foundation in Python and C++. Experienced in developing machine learning models, with a particular focus on machine vision and AI-driven automation. Adept at reverse engineering and software analysis, bringing a problem-solving mindset to complex challenges. In addition to research and development, I have experience teaching programming and assisting students in mastering software concepts. Always eager to explore new AI technologies and build innovative solutions.">
-    <meta name="author" content="Sergei Yakima">
+        /* Utility classes for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <!-- Open Graph Tags: The title of the page for social media sharing. It can match the title tag or be more descriptive. -->
-    <meta property="og:title" content="Sergei Yakima">
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937; /* Dark gray for dark mode */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a3a3a3;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563; /* Medium gray for dark mode */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 
-    <!-- Open Graph Tags: Typically set to "website" for static sites or "article" for content-heavy pages. -->
-    <meta property="og:type" content="website">
+        /* Styles for the project cards */
+        .project-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .project-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
 
-    <!-- Open Graph Tags: The URL of the page, used to ensure link previews resolve to the correct page. -->
-    <meta property="og:url" content="https://yakima.dev/index.html">
+    <!-- JavaScript for Dark Mode Toggle and Initial Load -->
+    <script>
+        // Use a function to manage state and apply classes
+        function initDarkMode() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            const isDark = savedTheme === 'dark' || (savedTheme === null && prefersDark);
 
-    <!-- Open Graph Tags: URL of an image that represents the page. Useful for link previews. -->
-    <meta property="og:image" content="https://yakima.dev/media/profile.jpg">
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
 
-    <!-- Open Graph Tags: Provides an alternative text for the image to improve accessibility. -->
-    <meta property="og:image:alt" content="Sergei Yakima Profile Image">
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateToggleIcon(isDark);
+        }
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/modern_normalize.css" />
-    <link rel="stylesheet" href="css/html5bp.css">
-    <link rel="stylesheet" href="css/main.css">
+        function updateToggleIcon(isDark) {
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (sunIcon && moonIcon) {
+                sunIcon.classList.toggle('hidden', isDark);
+                moonIcon.classList.toggle('hidden', !isDark);
+            }
+        }
 
-    <!-- Set a theme color that matches your website's primary color -->
-    <meta name="theme-color" content="#fafafa">
+        // Initialize dark mode on script load
+        initDarkMode();
+        
+        // Render lucide icons after DOM is ready
+        window.addEventListener('load', () => {
+            lucide.createIcons();
+            // Update icon state after rendering, based on initial state
+            updateToggleIcon(document.documentElement.classList.contains('dark'));
+        });
+    </script>
 
-    <!-- Favicon for all browsers -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-
-    <!-- Apple touch icon for iOS devices -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
-
-    <!-- Web app manifest for Progressive Web Apps -->
-    <link rel="manifest" href="/site.webmanifest">
-
-    <!-- Content Security Policy: Uncomment to enhance security by restricting where content can be loaded from (useful for preventing certain attacks like XSS). Update if adding external sources (e.g., Google Fonts, Bootstrap CDN, analytics, etc). -->
-    <!-- <meta http-equiv="Content-Security-Policy" content=" default-src 'self'; script-src 'self' code.jquery.com; style-src 'self' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' images.examplecdn.com; "> -->
-  </head>
-
-  <body>
-    <header class="page-header">
-      <div class="container">
-        <div class="header-top flex-responsive">
-          
-            <img class="header-image"
-                 width="256"
-                 height="256"
-                 src="media/profile.jpg"
-                 alt="Sergei Yakima Profile Image" />
-          
-          <div class="header-info">
-            <h1>Sergei Yakima</h1>
-            <h2 class="header-label">Software Engineer</h2>
-            
-              <address>
-                <ul class="inline-list flex-responsive">
-                  
-                    <li>
-                      <a href="mailto:sergeiyakima.dev@gmail.com">sergeiyakima.dev@gmail.com</a>
-                    </li>
-                  
-                  
-                    <li>
-                      <a href="tel:+972 54 752 8202">+972 54 752 8202</a>
-                    </li>
-                  
-                  <li>Ashkelon, Israel</li>
-                </ul>
-              </address>
-            
-
-            
-              <ul class="inline-list flex-responsive">
-                
-                  <li>
-                    <a href="https://yakima.dev" target="_blank" rel="noopener noreferrer" aria-label="Yakima.Dev" class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-globe-americas"
-     viewBox="0 0 16 16">
-  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484q-.121.12-.242.234c-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
-</svg>
-
-                      Yakima.Dev
+    <!-- Navigation Bar (Fixed) -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-lg dark:bg-gray-800/90 dark:shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Name -->
+                <a href="#" class="flex-shrink-0 text-xl font-bold text-primary dark:text-white">
+                    Sergei Yakima
+                </a>
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition duration-150 ease-in-out font-medium">About</a>
+                    <a href="#projects" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition duration-150 ease-in-out font-medium">Projects</a>
+                    <a href="#experience" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition duration-150 ease-in-out font-medium">Experience</a>
+                    <a href="#skills" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition duration-150 ease-in-out font-medium">Skills</a>
+                    <a href="mailto:sergeiyakima.dev@gmail.com" class="text-secondary hover:text-orange-600 transition duration-150 ease-in-out font-medium flex items-center">
+                        <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                        Contact
                     </a>
-                  </li>
-                
-                  <li>
-                    <a href="https://linkedin.com/in/sergei-yakima" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-linkedin"
-     viewBox="0 0 16 16">
-  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
-</svg>
-
-                      LinkedIn
-                    </a>
-                  </li>
-                
-                  <li>
-                    <a href="https://github.com/TheL0L" target="_blank" rel="noopener noreferrer" aria-label="Github" class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-github"
-     viewBox="0 0 16 16">
-  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
-</svg>
-
-                      Github
-                    </a>
-                  </li>
-                
-              </ul>
-            
-
-            <p class="header-summary">Passionate software engineer with a strong foundation in Python and C++. Experienced in developing machine learning models, with a particular focus on machine vision and AI-driven automation. Adept at reverse engineering and software analysis, bringing a problem-solving mindset to complex challenges. In addition to research and development, I have experience teaching programming and assisting students in mastering software concepts. Always eager to explore new AI technologies and build innovative solutions.</p>
-          </div>
+                </div>
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-150">
+                    <i id="sun-icon" data-lucide="sun" class="w-5 h-5 text-yellow-500 hidden"></i>
+                    <i id="moon-icon" data-lucide="moon" class="w-5 h-5 text-gray-500 hidden"></i>
+                </button>
+            </div>
         </div>
-      </div>
-    </header>
+    </nav>
 
-    <div class="page-content">
-      <div class="container">
-        <main>
-          
-            <section>
-              <h2 class="section-heading">Work Experience</h2>
-              
-                <section>
-                  <h3>
-                    
-                      Teaching Assistant at <a href="https://www.sce.ac.il" target="_blank" rel="noopener noreferrer">Shamoon College of Engineering - SCE</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">June, 2024 - February, 2025</p>
-                  
-                  <p>Assisted in teaching programming courses, guiding students through assignments and problem-solving.</p>
-                  
-                    <ul>
-                      <li>Evaluated and graded student assignments</li><li>Provided one-on-one assistance to students</li><li>Helped explain complex programming concepts</li>
-                    </ul>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      Python Teacher at <a href="https://leadersapp.co.il" target="_blank" rel="noopener noreferrer">LeadersApp Technologies</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">May, 2024 - June, 2024</p>
-                  
-                  <p>Designed and delivered Python programming lessons to high school students.</p>
-                  
-                    <ul>
-                      <li>Developed structured lesson plans covering Python fundamentals</li><li>Conducted hands-on coding exercises and debugging sessions</li><li>Encouraged problem-solving and algorithmic thinking</li>
-                    </ul>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      Prototype Development Engineer at <a href="https://www.amicell.co.il" target="_blank" rel="noopener noreferrer">Amicell - Amit Industries Ltd.</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">August, 2023 - October, 2023</p>
-                  
-                  <p>Contributed to the development of mechanical and electrical prototypes.</p>
-                  
-                    <ul>
-                      <li>Collaborated with engineers to design and test hardware components</li><li>Conducted static code analysis to identify and resolve issues</li><li>Worked on improving prototype efficiency and functionality</li>
-                    </ul>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      Teacher at <a href="https://atidplus.org" target="_blank" rel="noopener noreferrer">Atid Plus</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">October, 2022 - March, 2023</p>
-                  
-                  <p>Tutored high school students in mathematics, physics, programming, and English.</p>
-                  
-                    <ul>
-                      <li>Provided personalized tutoring to improve academic performance</li><li>Conducted group and individual lessons tailored to student needs</li><li>Simplified complex subjects through engaging and interactive teaching methods</li>
-                    </ul>
-                  
-                </section>
-              
-            </section>
-          
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-          
+        <!-- Header Section -->
+        <header class="text-center py-16">
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white">
+                Sergei <span class="text-primary">Yakima</span>
+            </h1>
+            <p class="text-2xl font-light text-gray-500 dark:text-gray-400 mb-8">
+                Software Engineer | ML & Computer Vision Focus
+            </p>
+            <!-- Social Links -->
+            <div class="flex justify-center space-x-6">
+                <a href="https://yakima.dev" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition duration-150 flex items-center">
+                    <i data-lucide="globe" class="w-5 h-5 mr-1"></i>
+                    Website
+                </a>
+                <a href="https://linkedin.com/in/sergei-yakima" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition duration-150 flex items-center">
+                    <i data-lucide="linkedin" class="w-5 h-5 mr-1"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/TheL0L" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition duration-150 flex items-center">
+                    <i data-lucide="github" class="w-5 h-5 mr-1"></i>
+                    GitHub
+                </a>
+            </div>
+        </header>
 
-          
-        </main>
-
-        <!-- Sidebar Section -->
-        <aside>
-          
-            <section>
-              <h2 class="section-heading">Education</h2>
-              
-                <section>
-                  <h3>
-                    
-                      <a href="https://www.sce.ac.il" target="_blank" rel="noopener noreferrer">Shamoon College of Engineering - SCE</a>
-                    
-                  </h3>
-                  <p class="section-label">Ashdod, Israel</p>
-                  
-                    <h4>Degrees</h4>
-                    <ul>
-                      <li>Bachelor of Software Engineering</li>
-                    </ul>
-                  
-                  
-                  
-                    <p>
-                      
-                      
-                      <span class="block">Graduation Date: July, 2025</span>
+        <!-- About Section (Summary) -->
+        <section id="about" class="py-16 border-t border-gray-200 dark:border-gray-700">
+            <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-6 border-b pb-2">About Me</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                        Passionate software engineer with a strong foundation in Python and C++. I specialize in developing machine learning models, with a particular focus on machine vision and AI-driven automation. My experience includes adept reverse engineering and software analysis, bringing a problem-solving mindset to complex challenges.
                     </p>
-                  
-                </section>
-              
-            </section>
-          
+                    <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mt-4">
+                        In addition to R&D, I have experience teaching programming and assisting students in mastering software concepts. I'm currently pursuing a MSc in Software Engineering and always eager to explore new AI technologies and build innovative solutions.
+                    </p>
+                    <div class="mt-8">
+                        <a href="mailto:sergeiyakima.dev@gmail.com" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-secondary hover:bg-orange-600 transition duration-150">
+                            <i data-lucide="send" class="w-5 h-5 mr-2"></i>
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
 
-          
-            <section>
-              <h2 class="section-heading">Skills</h2>
-              <ul class="unstyled-list">
-                
-                  <li>
-                    <h3>Python</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-90"
-                           role="meter"
-                           aria-valuenow="90"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Advanced</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>C/C++</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-90"
-                           role="meter"
-                           aria-valuenow="90"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Advanced</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>C#</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-80"
-                           role="meter"
-                           aria-valuenow="80"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Proficient</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>Java</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-75"
-                           role="meter"
-                           aria-valuenow="75"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Proficient</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>Unity 3D</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-75"
-                           role="meter"
-                           aria-valuenow="75"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Proficient</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>Adobe Photoshop</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-70"
-                           role="meter"
-                           aria-valuenow="70"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Intermediate</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>Adobe Premier</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-60"
-                           role="meter"
-                           aria-valuenow="60"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Intermediate</span>
-                      </div>
-                    </div>
-                  </li>
-                
-              </ul>
-            </section>
-          
+                <!-- Contact Card -->
+                <div class="md:col-span-1 p-6 rounded-xl bg-gray-150 dark:bg-gray-800 shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Contact & Location</h3>
+                    <p class="flex items-center mb-2 text-gray-700 dark:text-gray-300">
+                        <i data-lucide="mail" class="w-4 h-4 mr-2 text-primary"></i>
+                        <a href="mailto:sergeiyakima.dev@gmail.com" class="hover:underline break-all">sergeiyakima.dev@gmail.com</a>
+                    </p>
+                    <p class="flex items-center mb-2 text-gray-700 dark:text-gray-300">
+                        <i data-lucide="phone" class="w-4 h-4 mr-2 text-primary"></i>
+                        <a href="tel:+972 54 752 8202" class="hover:underline">+972 54 752 8202</a>
+                    </p>
+                    <p class="flex items-center text-gray-700 dark:text-gray-300">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-primary"></i>
+                        Ashkelon, Israel
+                    </p>
+                </div>
+            </div>
+        </section>
 
-          
-            <section>
-              <h2 class="section-heading">Languages</h2>
-              <ul class="unstyled-list">
-                
-                  <li>
-                    <h3>English</h3>
-                    <p class="section-label">Professional Working Proficiency</p>
-                  </li>
-                
-                  <li>
-                    <h3>Hebrew</h3>
-                    <p class="section-label">Native speaker</p>
-                  </li>
-                
-                  <li>
-                    <h3>Russian</h3>
-                    <p class="section-label">Native speaker</p>
-                  </li>
-                
-              </ul>
-            </section>
-          
+        <!-- Projects Section (Showcase) -->
+        <section id="projects" class="py-16 border-t border-gray-200 dark:border-gray-700">
+            <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-10 border-b pb-2">Featured Projects</h2>
+            
+            <div class="grid gap-10 md:grid-cols-2">
 
-          
-            <section>
-              <h2 class="section-heading">Interests</h2>
-              
-                <section>
-                  <h3>Programming</h3>
-                  <p>Passionate about programming for fun, nothing brings more joy than automating tasks.</p>
-                  
-                </section>
-              
-                <section>
-                  <h3>Reverse Engineering</h3>
-                  <p>Analyzing and making sense of compiled software is a challenging yet rewarding experience.</p>
-                  
-                </section>
-              
-                <section>
-                  <h3>PC Building</h3>
-                  <p>Building computers requires just the right amount of know-how and tinkering to make it fun.</p>
-                  
-                </section>
-              
-            </section>
-          
-        </aside>
-      </div>
-    </div>
+                <div class="project-card bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="bug" class="w-8 h-8 text-primary mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Fly Tracker: AI-Powered Tracking</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <span class="font-medium">Technologies:</span> Python, PyTorch, YOLOv8, DeepSORT, Qt5
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        Developed an AI-powered machine vision system for Drosophila melanogaster tracking, automating data extraction with YOLOv8 and DeepSORT. Significantly improved research efficiency and data reproducibility for Hebrew University of Jerusalem. Presented at the &#39;Southern Quality Conference 2024&#39;.
+                    </p>
+                    <a href="https://github.com/TheL0L/FlyTracker" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary font-semibold hover:text-blue-600 transition duration-150">
+                        View on GitHub
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
 
-    <footer class="page-footer">
-      <div class="container">
-        <p>© 2025 Sergei Yakima. All rights reserved.</p>
-      </div>
+                <div class="project-card bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 text-secondary mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Drosophila Behavioral Data Analysis</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <span class="font-medium">Technologies:</span> Python, TensorFlow, scikit-learn, Google Colab (Random Forest, K-Means, SVM, LSTM)
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        Conducted ML research on behavioral data, exploring various models (Random Forests, K-Means, SVMs, LSTMs) to identify correlations and predict fly age (achieving R&sup2; = 0.4358). This project demonstrated strong skills in structured data analysis and machine learning experimentation.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-primary font-semibold hover:text-blue-600 transition duration-150 opacity-50 cursor-default">
+                        (Source Code Not Publicly Available)
+                        <i data-lucide="lock" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+         <section id="experience" class="py-16 border-t border-gray-200 dark:border-gray-700">
+            <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-10 border-b pb-2">Professional Experience</h2>
+            
+            <ol class="relative border-l-2 border-gray-200 dark:border-gray-700 ml-4">                  
+                
+                <li class="mb-10 ml-6">
+                    <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <h3 class="flex items-center mb-1 text-xl font-semibold text-gray-900 dark:text-white">
+                            Teaching Assistant
+                        </h3>
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-2">
+                            June, 2024 - February, 2025 | 
+                            <a href="https://www.sce.ac.il" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Shamoon College of Engineering - SCE</a>
+                        </p>
+                        <ul class="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                            <li>Assisted in teaching programming courses, guiding students through assignments and problem-solving.</li>
+                            <li>Evaluated and graded student assignments and provided one-on-one assistance.</li>
+                            <li>Helped explain complex programming concepts and fostered a strong understanding of software principles.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6">
+                    <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <h3 class="flex items-center mb-1 text-xl font-semibold text-gray-900 dark:text-white">
+                            Python Teacher
+                        </h3>
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-2">
+                            May, 2024 - June, 2024 | 
+                            <a href="https://leadersapp.co.il" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">LeadersApp Technologies</a>
+                        </p>
+                        <ul class="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                            <li>Designed and delivered Python programming lessons to high school students, covering Python fundamentals.</li>
+                            <li>Conducted hands-on coding exercises and debugging sessions to reinforce learning.</li>
+                            <li>Encouraged problem-solving and algorithmic thinking in a classroom setting.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6">
+                    <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <h3 class="flex items-center mb-1 text-xl font-semibold text-gray-900 dark:text-white">
+                            Prototype Development Engineer
+                        </h3>
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-2">
+                            August, 2023 - October, 2023 | 
+                            <a href="https://www.amicell.co.il" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Amicell - Amit Industries Ltd.</a>
+                        </p>
+                        <ul class="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                            <li>Contributed to the development of mechanical and electrical prototypes.</li>
+                            <li>Collaborated with engineers to design and test hardware components.</li>
+                            <li>Conducted static code analysis to identify and resolve software and efficiency issues.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="ml-6">
+                    <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <h3 class="flex items-center mb-1 text-xl font-semibold text-gray-900 dark:text-white">
+                            Teacher
+                        </h3>
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-2">
+                            October, 2022 - March, 2023 | 
+                            <a href="https://atidplus.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Atid Plus</a>
+                        </p>
+                        <ul class="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                          <li>Tutored high school students in mathematics, physics, programming, and English.</li>
+                          <li>Provided personalized tutoring to improve academic performance.</li>
+                          <li>Conducted group and individual lessons tailored to student needs.</li>
+                          <li>Simplified complex subjects through engaging and interactive teaching methods.</li>
+                        </ul>
+                    </div>
+                </li>
+				
+            </ol>
+        </section>
+
+        <!-- Skills & Education Section -->
+        <section id="skills" class="py-16 border-t border-gray-200 dark:border-gray-700">
+            <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-10 border-b pb-2">Skills & Education</h2>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                
+                <!-- Technical Skills Column -->
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-bold mb-4 text-primary dark:text-white">Technical Expertise</h3>
+                    
+                    <!-- Languages -->
+                    <div class="mb-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold mb-1 text-gray-900 dark:text-white flex items-center">
+                            <i data-lucide="code-square" class="w-5 h-5 mr-2 text-secondary"></i>
+                            Programming Languages
+                        </h4>
+                        <p class="text-gray-700 dark:text-gray-300 flex flex-wrap gap-2 mt-2">
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">C/C++</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">C#</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Java</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Python</span>
+                        </p>
+                    </div>
+
+                    <!-- Libraries & ML -->
+                    <div class="mb-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold mb-1 text-gray-900 dark:text-white flex items-center">
+                            <i data-lucide="cpu" class="w-5 h-5 mr-2 text-secondary"></i>
+                            AI, ML & Libraries
+                        </h4>
+                        <p class="text-gray-700 dark:text-gray-300 flex flex-wrap gap-2 mt-2">
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">PyTorch</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">TensorFlow</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">YOLOv8/Ultralytics</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">OpenCV</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Scikit-Learn</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Machine Vision</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Ollama/OpenAI API</span>
+                        </p>
+                    </div>
+
+                    <!-- Systems & Other -->
+                    <div class="mb-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold mb-1 text-gray-900 dark:text-white flex items-center">
+                            <i data-lucide="settings" class="w-5 h-5 mr-2 text-secondary"></i>
+                            Systems & Misc.
+                        </h4>
+                        <p class="text-gray-700 dark:text-gray-300 flex flex-wrap gap-2 mt-2">
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Docker</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Git/GitHub Actions</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Linux/Windows</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Reverse Engineering (Ghydra)</span>
+                            <span class="bg-gray-300 dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium">Unity 3D</span>
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Education & Languages Column -->
+                <div class="md:col-span-1">
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-primary dark:text-white">Education</h3>
+                    
+                    <!-- BSc -->
+                    <div class="mb-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <p class="text-xl font-semibold text-gray-900 dark:text-white">BSc in Software Engineering</p>
+                        <p class="text-primary text-sm mb-1">Shamoon College of Engineering - SCE</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Feb 2022 - Jul 2025 | Avg: 89/100</p>
+                    </div>
+                    
+                    <!-- MSc (Future) -->
+                    <div class="mb-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <p class="text-xl font-semibold text-gray-900 dark:text-white">MSc in Software Engineering</p>
+                        <p class="text-primary text-sm mb-1">Shamoon College of Engineering - SCE</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Oct 2025</p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mt-8 mb-4 text-primary dark:text-white">Languages</h3>
+                    
+                    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                        <li class="flex justify-between items-center bg-gray-200 dark:bg-gray-800 p-2 rounded-lg">
+                            <span class="font-medium">English</span>
+                            <span class="text-sm text-secondary font-semibold">Professional Fluency</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-gray-200 dark:bg-gray-800 p-2 rounded-lg">
+                            <span class="font-medium">Hebrew</span>
+                            <span class="text-sm text-secondary font-semibold">Native Speaker</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-gray-200 dark:bg-gray-800 p-2 rounded-lg">
+                            <span class="font-medium">Russian</span>
+                            <span class="text-sm text-secondary font-semibold">Native Speaker</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End Main Content Container -->
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 py-6 mt-10 shadow-lg border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                &copy; 2025 Sergei Yakima. All rights reserved.
+            </p>
+        </div>
     </footer>
-  </body>
+
+</body>
 </html>
